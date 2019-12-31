@@ -1,0 +1,3 @@
+C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\bin\Debug\GroundStation_Mahsa.exe.config
+C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.exe
+C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.pdb

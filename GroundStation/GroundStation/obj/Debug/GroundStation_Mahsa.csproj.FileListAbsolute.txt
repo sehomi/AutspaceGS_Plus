@@ -1,0 +1,11 @@
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\bin\Debug\GroundStation_Mahsa.exe.config
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\bin\Debug\GroundStation_Mahsa.exe
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\bin\Debug\GroundStation_Mahsa.pdb
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\obj\Debug\GroundStation_Mahsa.csprojResolveAssemblyReference.cache
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\obj\Debug\GroundStation_Mahsa.GroundStation_Form.resources
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\obj\Debug\GroundStation_Mahsa.Properties.Resources.resources
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\obj\Debug\GroundStation_Mahsa.csproj.GenerateResource.Cache
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\obj\Debug\GroundStation_Mahsa.exe
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\obj\Debug\GroundStation_Mahsa.pdb
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\bin\Debug\GMap.NET.Core.dll
+C:\Users\Dear_User\Desktop\Mahsa GroundStation\GroundStation_Mahsa\GroundStation_Mahsa\bin\Debug\GMap.NET.WindowsForms.dll
