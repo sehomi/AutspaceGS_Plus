@@ -63,9 +63,9 @@ namespace GroundStation_Mahsa.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_connected_52__2_ {
+        internal static System.Drawing.Bitmap connect {
             get {
-                object obj = ResourceManager.GetObject("icons8-connected-52 (2)", resourceCulture);
+                object obj = ResourceManager.GetObject("connect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace GroundStation_Mahsa.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_connected_96 {
+        internal static System.Drawing.Bitmap disconnect {
             get {
-                object obj = ResourceManager.GetObject("icons8-connected-96", resourceCulture);
+                object obj = ResourceManager.GetObject("disconnect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace GroundStation_Mahsa.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap PHOTO_2019_11_27_01_02_48__1_ {
             get {
-                object obj = ResourceManager.GetObject("PHOTO-2019-11-27-01-02-48 (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("PHOTO_2019_11_27_01_02_48__1_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

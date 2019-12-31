@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroundStation_Form));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.Port_ComboBox = new System.Windows.Forms.ComboBox();
+            this.BaudRate_ComboBox = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CONNECT_btn = new System.Windows.Forms.Button();
+            this.ConnectionStatus_lbl = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Main_tab = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -82,6 +84,7 @@
             this.Map_groupBox = new System.Windows.Forms.GroupBox();
             this.GMap1 = new GMap.NET.WindowsForms.GMapControl();
             this.Settings_tab = new System.Windows.Forms.TabPage();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -114,6 +117,7 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.CONNECT_btn, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ConnectionStatus_lbl, 7, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -127,8 +131,8 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.comboBox1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.comboBox2, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.Port_ComboBox, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.BaudRate_ComboBox, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(767, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
@@ -137,34 +141,34 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(127, 94);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // comboBox1
+            // Port_ComboBox
             // 
-            this.comboBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.Port_ComboBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.Port_ComboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Port_ComboBox.FormattingEnabled = true;
+            this.Port_ComboBox.Items.AddRange(new object[] {
             "COM3"});
-            this.comboBox1.Location = new System.Drawing.Point(3, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.Port_ComboBox.Location = new System.Drawing.Point(3, 3);
+            this.Port_ComboBox.Name = "Port_ComboBox";
+            this.Port_ComboBox.Size = new System.Drawing.Size(121, 21);
+            this.Port_ComboBox.TabIndex = 0;
+            this.Port_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Port_ComboBox_SelectedIndexChanged);
+            this.Port_ComboBox.SelectedValueChanged += new System.EventHandler(this.Port_ComboBox_SelectedValueChanged);
             // 
-            // comboBox2
+            // BaudRate_ComboBox
             // 
-            this.comboBox2.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.comboBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "115200"});
-            this.comboBox2.Location = new System.Drawing.Point(3, 50);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 1;
+            this.BaudRate_ComboBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.BaudRate_ComboBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BaudRate_ComboBox.FormattingEnabled = true;
+            this.BaudRate_ComboBox.Location = new System.Drawing.Point(3, 50);
+            this.BaudRate_ComboBox.Name = "BaudRate_ComboBox";
+            this.BaudRate_ComboBox.Size = new System.Drawing.Size(121, 21);
+            this.BaudRate_ComboBox.TabIndex = 1;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::GroundStation_Mahsa.Properties.Resources.PHOTO_2019_11_27_01_02_48__1_;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
@@ -179,7 +183,7 @@
             this.CONNECT_btn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CONNECT_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CONNECT_btn.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.CONNECT_btn.Image = global::GroundStation_Mahsa.Properties.Resources.icons8_connected_52__2_;
+            this.CONNECT_btn.Image = ((System.Drawing.Image)(resources.GetObject("CONNECT_btn.Image")));
             this.CONNECT_btn.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.CONNECT_btn.Location = new System.Drawing.Point(968, 3);
             this.CONNECT_btn.Name = "CONNECT_btn";
@@ -189,6 +193,17 @@
             this.CONNECT_btn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.CONNECT_btn.UseVisualStyleBackColor = false;
             this.CONNECT_btn.Click += new System.EventHandler(this.CONNECT_btn_Click);
+            // 
+            // ConnectionStatus_lbl
+            // 
+            this.ConnectionStatus_lbl.AutoSize = true;
+            this.ConnectionStatus_lbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ConnectionStatus_lbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ConnectionStatus_lbl.Location = new System.Drawing.Point(1143, 0);
+            this.ConnectionStatus_lbl.Name = "ConnectionStatus_lbl";
+            this.ConnectionStatus_lbl.Size = new System.Drawing.Size(125, 100);
+            this.ConnectionStatus_lbl.TabIndex = 3;
+            this.ConnectionStatus_lbl.Text = "Connection Status";
             // 
             // tabControl1
             // 
@@ -709,6 +724,12 @@
             this.Settings_tab.TabIndex = 1;
             this.Settings_tab.Text = "Settings";
             // 
+            // serialPort1
+            // 
+            this.serialPort1.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort1_ErrorReceived);
+            this.serialPort1.PinChanged += new System.IO.Ports.SerialPinChangedEventHandler(this.serialPort1_PinChanged);
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
             // GroundStation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -723,6 +744,7 @@
             this.Text = "AUT∞SPACE Ground Station";
             this.Load += new System.EventHandler(this.GroundStation_Form_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -747,8 +769,8 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox Port_ComboBox;
+        private System.Windows.Forms.ComboBox BaudRate_ComboBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button CONNECT_btn;
         private System.Windows.Forms.TabControl tabControl1;
@@ -798,6 +820,8 @@
         private System.Windows.Forms.Label GPSFix_lbl;
         private System.Windows.Forms.GroupBox Map_groupBox;
         private GMap.NET.WindowsForms.GMapControl GMap1;
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Label ConnectionStatus_lbl;
     }
 }
 
