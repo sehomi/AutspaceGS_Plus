@@ -9,3 +9,14 @@ C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\bin
 C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\bin\Debug\GroundStation_Mahsa.pdb
 C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\bin\Debug\GMap.NET.Core.dll
 C:\Users\Dear_User\Desktop\Workspace\autspace_gs\GroundStation\GroundStation\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\bin\Debug\GroundStation_Mahsa.exe.config
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.exe
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.pdb
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\bin\Debug\GroundStation_Mahsa.exe
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\bin\Debug\GroundStation_Mahsa.pdb
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\bin\Debug\GMap.NET.Core.dll
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation.csprojResolveAssemblyReference.cache
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.GroundStation_Form.resources
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.Properties.Resources.resources
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation.csproj.GenerateResource.Cache

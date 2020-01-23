@@ -25,12 +25,26 @@ namespace GroundStation_Mahsa
 
         private string prt;
 
+        public Server server;
+
+        private GMapOverlay cansat_layer;
+
+        GMapMarker cansat_marker;
+
         public GroundStation_Form()
         {
             InitializeComponent();
             //initialize global variables:
+            server = new Server();
             baud = 9600;
             prt = "";
+
+            cansat_layer = new GMapOverlay(GMap1, "cansat layer");
+            cansat_marker = new GMapMarkerGoogleRed(new PointLatLng());
+
+            cansat_layer.Markers.Add(cansat_marker);
+
+            GMap1.Overlays.Add(cansat_layer);
         }
 
         private void tableLayoutPanel9_Paint(object sender, PaintEventArgs e)
@@ -45,13 +59,6 @@ namespace GroundStation_Mahsa
 
         private void GroundStation_Form_Load(object sender, EventArgs e)
         {
-            GMap1.MapProvider = GMap.NET.MapProviders.GMapProviders.BingSatelliteMap;
-            // save map
-            GMap1.Manager.Mode = GMap.NET.AccessMode.ServerAndCache;
-            //position (Tehran):
-            GMap1.Position = new PointLatLng(35.971684, 51.589759);
-
-            GMap1.Zoom = 16;
 
             BaudRate_ComboBox.Items.Add("9600");
             BaudRate_ComboBox.Items.Add("19200");
@@ -107,8 +114,22 @@ namespace GroundStation_Mahsa
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            List<byte> received_bytes = new List<byte>();
+            if (serialPort1.IsOpen)
+            {
+                while (serialPort1.IsOpen && received_bytes.Count < serialPort1.BytesToRead)
+                {
+                    if (serialPort1.IsOpen)
+                    {
+                        received_bytes.Add((byte)serialPort1.ReadByte());
+
+                    }
+                }
+            }
+
             this.Invoke((MethodInvoker)delegate()
             {
+                server.make_buffer(received_bytes);
                 ConnectionStatus_lbl.Text = "Connection Status\n\nData Recieved";
             });
 
@@ -181,6 +202,34 @@ namespace GroundStation_Mahsa
                     baud = 9600;
                     break;
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ALTMSLValue_lbl.Text = server.location.alt.ToString();
+        }
+
+        private void GroundStation_Form_Shown(object sender, EventArgs e)
+        {
+            GMap1.MapProvider = GMap.NET.MapProviders.GMapProviders.BingSatelliteMap;
+            // save map
+            GMap1.Manager.Mode = GMap.NET.AccessMode.ServerAndCache;
+            //position (Tehran):
+            GMap1.Position = new PointLatLng(35.971684, 51.589759);
+
+            GMap1.Zoom = 10;
+
+            cansat_marker.Position = new PointLatLng(35.971684, 51.589759);
+        }
+
+        private void ZoomInBtn_Click(object sender, EventArgs e)
+        {
+            GMap1.Zoom += 1;
+        }
+
+        private void ZoomOutBtn_Click(object sender, EventArgs e)
+        {
+            GMap1.Zoom -= 1;
         }
     }
 }

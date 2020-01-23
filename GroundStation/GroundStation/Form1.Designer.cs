@@ -85,6 +85,9 @@
             this.GMap1 = new GMap.NET.WindowsForms.GMapControl();
             this.Settings_tab = new System.Windows.Forms.TabPage();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.ZoomInBtn = new System.Windows.Forms.Button();
+            this.ZoomOutBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -683,6 +686,8 @@
             // 
             // Map_groupBox
             // 
+            this.Map_groupBox.Controls.Add(this.ZoomOutBtn);
+            this.Map_groupBox.Controls.Add(this.ZoomInBtn);
             this.Map_groupBox.Controls.Add(this.GMap1);
             this.Map_groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Map_groupBox.Location = new System.Drawing.Point(0, 0);
@@ -694,6 +699,8 @@
             // 
             // GMap1
             // 
+            this.GMap1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GMap1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.GMap1.Bearing = 0F;
             this.GMap1.CanDragMap = true;
             this.GMap1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -701,7 +708,7 @@
             this.GMap1.LevelsKeepInMemmory = 5;
             this.GMap1.Location = new System.Drawing.Point(3, 16);
             this.GMap1.MarkersEnabled = true;
-            this.GMap1.MaxZoom = 2;
+            this.GMap1.MaxZoom = 19;
             this.GMap1.MinZoom = 2;
             this.GMap1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.GMap1.Name = "GMap1";
@@ -712,7 +719,7 @@
             this.GMap1.ShowTileGridLines = false;
             this.GMap1.Size = new System.Drawing.Size(895, 393);
             this.GMap1.TabIndex = 0;
-            this.GMap1.Zoom = 0D;
+            this.GMap1.Zoom = 2D;
             // 
             // Settings_tab
             // 
@@ -730,6 +737,32 @@
             this.serialPort1.PinChanged += new System.IO.Ports.SerialPinChangedEventHandler(this.serialPort1_PinChanged);
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // ZoomInBtn
+            // 
+            this.ZoomInBtn.Location = new System.Drawing.Point(820, 383);
+            this.ZoomInBtn.Name = "ZoomInBtn";
+            this.ZoomInBtn.Size = new System.Drawing.Size(75, 23);
+            this.ZoomInBtn.TabIndex = 1;
+            this.ZoomInBtn.Text = "Zoom In";
+            this.ZoomInBtn.UseVisualStyleBackColor = true;
+            this.ZoomInBtn.Click += new System.EventHandler(this.ZoomInBtn_Click);
+            // 
+            // ZoomOutBtn
+            // 
+            this.ZoomOutBtn.Location = new System.Drawing.Point(739, 383);
+            this.ZoomOutBtn.Name = "ZoomOutBtn";
+            this.ZoomOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.ZoomOutBtn.TabIndex = 2;
+            this.ZoomOutBtn.Text = "Zoom Out";
+            this.ZoomOutBtn.UseVisualStyleBackColor = true;
+            this.ZoomOutBtn.Click += new System.EventHandler(this.ZoomOutBtn_Click);
+            // 
             // GroundStation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -738,11 +771,12 @@
             this.ClientSize = new System.Drawing.Size(1271, 686);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GroundStation_Form";
             this.Text = "AUT∞SPACE Ground Station";
             this.Load += new System.EventHandler(this.GroundStation_Form_Load);
+            this.Shown += new System.EventHandler(this.GroundStation_Form_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -819,9 +853,12 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label GPSFix_lbl;
         private System.Windows.Forms.GroupBox Map_groupBox;
-        private GMap.NET.WindowsForms.GMapControl GMap1;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Label ConnectionStatus_lbl;
+        private System.Windows.Forms.Timer timer1;
+        public GMap.NET.WindowsForms.GMapControl GMap1;
+        private System.Windows.Forms.Button ZoomOutBtn;
+        private System.Windows.Forms.Button ZoomInBtn;
     }
 }
 
