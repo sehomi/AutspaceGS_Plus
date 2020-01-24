@@ -120,7 +120,7 @@ namespace GroundStation_Mahsa
                         d_temp[6] = packet[9];
                         d_temp[7] = packet[10];
 
-                        location.lat = BitConverter.ToDouble(d_temp, 0);
+                        location.lat = BitConverter.ToUInt32(d_temp, 0) / 1e7;
 
                         d_temp[0] = packet[11];
                         d_temp[1] = packet[12];
@@ -131,7 +131,7 @@ namespace GroundStation_Mahsa
                         d_temp[6] = packet[17];
                         d_temp[7] = packet[18];
 
-                        location.lng = BitConverter.ToDouble(d_temp, 0);
+                        location.lng = BitConverter.ToUInt32(d_temp, 0) / 1e7;
 
                         temp[0] = packet[19];
                         temp[1] = packet[20];

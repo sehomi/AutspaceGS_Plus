@@ -40,7 +40,7 @@ namespace GroundStation_Mahsa
             prt = "";
 
             cansat_layer = new GMapOverlay(GMap1, "cansat layer");
-            cansat_marker = new GMapMarkerGoogleRed(new PointLatLng());
+            cansat_marker = new GMapMarkerImage(new PointLatLng(), GroundStation_Mahsa.Properties.Resources.satImg1);
 
             cansat_layer.Markers.Add(cansat_marker);
 
@@ -207,6 +207,7 @@ namespace GroundStation_Mahsa
         private void timer1_Tick(object sender, EventArgs e)
         {
             ALTMSLValue_lbl.Text = server.location.alt.ToString();
+            cansat_marker.Position = new PointLatLng(server.location.lat, server.location.lng);
         }
 
         private void GroundStation_Form_Shown(object sender, EventArgs e)
@@ -219,7 +220,6 @@ namespace GroundStation_Mahsa
 
             GMap1.Zoom = 10;
 
-            cansat_marker.Position = new PointLatLng(35.971684, 51.589759);
         }
 
         private void ZoomInBtn_Click(object sender, EventArgs e)
@@ -230,6 +230,85 @@ namespace GroundStation_Mahsa
         private void ZoomOutBtn_Click(object sender, EventArgs e)
         {
             GMap1.Zoom -= 1;
+        }
+    }
+
+    public class GMapMarkerImage : GMapMarker
+    {
+        public double Heading;
+        private Image img;
+        private float imageScaleFactor = 1;
+        public Image MarkerImage
+        {
+            get
+            {
+                return img;
+            }
+            set
+            {
+                img = value;
+            }
+        }
+
+        public float ScaleFactor
+        {
+            get
+            {
+                return imageScaleFactor;
+            }
+            set
+            {
+                imageScaleFactor = value;
+            }
+        }
+
+        public GMapMarkerImage(PointLatLng p, Image image)
+            : base(p)
+        {
+            img = image;
+            Size = img.Size;
+            Offset = new System.Drawing.Point(-Size.Width / 2, -Size.Height / 2);
+        }
+
+        public override void OnRender(Graphics g)
+        {
+            Point Aircraft_Position = new Point(LocalPosition.X, LocalPosition.Y);
+            Point Center = new Point(Aircraft_Position.X + 25, Aircraft_Position.Y + 25);
+            Rotate_Image(g, img, Aircraft_Position, Center, (float)Heading, imageScaleFactor);
+        }
+
+        protected void Rotate_Image(Graphics pe, Image img, Point ptImg, Point ptRot, float angle_deg, float scaleFactor)
+        {
+            double beta = 0;    // Angle between the Horizontal line and the line (Left upper corner - Rotation point)
+            double d = 0;       // Distance between Left upper corner and Rotation point)		
+            float deltaX = 0;   // X componant of the corrected translation
+            float deltaY = 0;   // Y componant of the corrected translation
+
+            double angle_rad = (angle_deg * Math.PI / 180);
+            // Compute the correction translation coeff
+            if (ptImg != ptRot)
+            {
+                //
+                if (ptRot.X != 0)
+                {
+                    beta = Math.Atan((double)ptRot.Y / (double)ptRot.X);
+                }
+
+                d = Math.Sqrt((ptRot.X * ptRot.X) + (ptRot.Y * ptRot.Y));
+
+                // Computed offset
+                deltaX = (float)(d * (Math.Cos(angle_rad - beta) - Math.Cos(angle_rad) * Math.Cos(angle_rad + beta) - Math.Sin(angle_rad) * Math.Sin(angle_rad + beta)));
+                deltaY = (float)(d * (Math.Sin(beta - angle_rad) + Math.Sin(angle_rad) * Math.Cos(angle_rad + beta) - Math.Cos(angle_rad) * Math.Sin(angle_rad + beta)));
+            }
+
+            // Rotate image support
+            pe.RotateTransform(angle_deg);
+
+            // Dispay image
+            pe.DrawImage(img, (ptImg.X + deltaX) * scaleFactor, (ptImg.Y + deltaY) * scaleFactor, img.Width * scaleFactor, img.Height * scaleFactor);
+
+            // Put image support as found
+            pe.RotateTransform(-angle_deg);
         }
     }
 }
