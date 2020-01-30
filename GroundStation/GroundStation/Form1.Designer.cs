@@ -82,12 +82,13 @@
             this.label36 = new System.Windows.Forms.Label();
             this.GPSFix_lbl = new System.Windows.Forms.Label();
             this.Map_groupBox = new System.Windows.Forms.GroupBox();
+            this.ZoomOutBtn = new System.Windows.Forms.Button();
+            this.ZoomInBtn = new System.Windows.Forms.Button();
             this.GMap1 = new GMap.NET.WindowsForms.GMapControl();
             this.Settings_tab = new System.Windows.Forms.TabPage();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.ZoomInBtn = new System.Windows.Forms.Button();
-            this.ZoomOutBtn = new System.Windows.Forms.Button();
+            this.pfdControl1 = new PrimaryFlightDisplay.PFDControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -97,6 +98,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.PFD_groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -262,6 +264,7 @@
             // 
             // PFD_groupBox
             // 
+            this.PFD_groupBox.Controls.Add(this.pfdControl1);
             this.PFD_groupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.PFD_groupBox.Location = new System.Drawing.Point(0, 0);
             this.PFD_groupBox.Name = "PFD_groupBox";
@@ -697,6 +700,26 @@
             this.Map_groupBox.TabStop = false;
             this.Map_groupBox.Text = "Map";
             // 
+            // ZoomOutBtn
+            // 
+            this.ZoomOutBtn.Location = new System.Drawing.Point(739, 383);
+            this.ZoomOutBtn.Name = "ZoomOutBtn";
+            this.ZoomOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.ZoomOutBtn.TabIndex = 2;
+            this.ZoomOutBtn.Text = "Zoom Out";
+            this.ZoomOutBtn.UseVisualStyleBackColor = true;
+            this.ZoomOutBtn.Click += new System.EventHandler(this.ZoomOutBtn_Click);
+            // 
+            // ZoomInBtn
+            // 
+            this.ZoomInBtn.Location = new System.Drawing.Point(820, 383);
+            this.ZoomInBtn.Name = "ZoomInBtn";
+            this.ZoomInBtn.Size = new System.Drawing.Size(75, 23);
+            this.ZoomInBtn.TabIndex = 1;
+            this.ZoomInBtn.Text = "Zoom In";
+            this.ZoomInBtn.UseVisualStyleBackColor = true;
+            this.ZoomInBtn.Click += new System.EventHandler(this.ZoomInBtn_Click);
+            // 
             // GMap1
             // 
             this.GMap1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -743,25 +766,14 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // ZoomInBtn
+            // pfdControl1
             // 
-            this.ZoomInBtn.Location = new System.Drawing.Point(820, 383);
-            this.ZoomInBtn.Name = "ZoomInBtn";
-            this.ZoomInBtn.Size = new System.Drawing.Size(75, 23);
-            this.ZoomInBtn.TabIndex = 1;
-            this.ZoomInBtn.Text = "Zoom In";
-            this.ZoomInBtn.UseVisualStyleBackColor = true;
-            this.ZoomInBtn.Click += new System.EventHandler(this.ZoomInBtn_Click);
-            // 
-            // ZoomOutBtn
-            // 
-            this.ZoomOutBtn.Location = new System.Drawing.Point(739, 383);
-            this.ZoomOutBtn.Name = "ZoomOutBtn";
-            this.ZoomOutBtn.Size = new System.Drawing.Size(75, 23);
-            this.ZoomOutBtn.TabIndex = 2;
-            this.ZoomOutBtn.Text = "Zoom Out";
-            this.ZoomOutBtn.UseVisualStyleBackColor = true;
-            this.ZoomOutBtn.Click += new System.EventHandler(this.ZoomOutBtn_Click);
+            this.pfdControl1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pfdControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pfdControl1.Location = new System.Drawing.Point(3, 16);
+            this.pfdControl1.Name = "pfdControl1";
+            this.pfdControl1.Size = new System.Drawing.Size(346, 252);
+            this.pfdControl1.TabIndex = 0;
             // 
             // GroundStation_Form
             // 
@@ -787,6 +799,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.PFD_groupBox.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -859,6 +872,7 @@
         public GMap.NET.WindowsForms.GMapControl GMap1;
         private System.Windows.Forms.Button ZoomOutBtn;
         private System.Windows.Forms.Button ZoomInBtn;
+        private PrimaryFlightDisplay.PFDControl pfdControl1;
     }
 }
 

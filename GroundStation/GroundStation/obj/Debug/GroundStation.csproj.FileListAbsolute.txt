@@ -20,3 +20,4 @@ C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\Gr
 C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.GroundStation_Form.resources
 C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation_Mahsa.Properties.Resources.resources
 C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\obj\Debug\GroundStation.csproj.GenerateResource.Cache
+C:\Users\a\Documents\GitHub\autspace_gs\GroundStation\GroundStation\bin\Debug\PrimaryFlightDisplay.dll
