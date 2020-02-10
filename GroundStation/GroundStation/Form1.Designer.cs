@@ -42,6 +42,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Camera_groupBox = new System.Windows.Forms.GroupBox();
             this.PFD_groupBox = new System.Windows.Forms.GroupBox();
+            this.pfdControl1 = new PrimaryFlightDisplay.PFDControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.sensors_groupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -85,10 +86,11 @@
             this.ZoomOutBtn = new System.Windows.Forms.Button();
             this.ZoomInBtn = new System.Windows.Forms.Button();
             this.GMap1 = new GMap.NET.WindowsForms.GMapControl();
-            this.Settings_tab = new System.Windows.Forms.TabPage();
+            this.Graphs_tab = new System.Windows.Forms.TabPage();
+            this.plotter = new GraphLib.PlotterDisplayEx();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pfdControl1 = new PrimaryFlightDisplay.PFDControl();
+            this.timer2 = new PrecisionTimer.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -106,6 +108,7 @@
             this.sensors_groupBox.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.Map_groupBox.SuspendLayout();
+            this.Graphs_tab.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -213,7 +216,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.Main_tab);
-            this.tabControl1.Controls.Add(this.Settings_tab);
+            this.tabControl1.Controls.Add(this.Graphs_tab);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 100);
             this.tabControl1.Name = "tabControl1";
@@ -272,6 +275,15 @@
             this.PFD_groupBox.TabIndex = 0;
             this.PFD_groupBox.TabStop = false;
             this.PFD_groupBox.Text = "PFD";
+            // 
+            // pfdControl1
+            // 
+            this.pfdControl1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.pfdControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pfdControl1.Location = new System.Drawing.Point(3, 16);
+            this.pfdControl1.Name = "pfdControl1";
+            this.pfdControl1.Size = new System.Drawing.Size(346, 252);
+            this.pfdControl1.TabIndex = 0;
             // 
             // splitContainer2
             // 
@@ -744,15 +756,31 @@
             this.GMap1.TabIndex = 0;
             this.GMap1.Zoom = 2D;
             // 
-            // Settings_tab
+            // Graphs_tab
             // 
-            this.Settings_tab.BackColor = System.Drawing.Color.LightBlue;
-            this.Settings_tab.Location = new System.Drawing.Point(4, 22);
-            this.Settings_tab.Name = "Settings_tab";
-            this.Settings_tab.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings_tab.Size = new System.Drawing.Size(1263, 560);
-            this.Settings_tab.TabIndex = 1;
-            this.Settings_tab.Text = "Settings";
+            this.Graphs_tab.BackColor = System.Drawing.Color.LightBlue;
+            this.Graphs_tab.Controls.Add(this.plotter);
+            this.Graphs_tab.Location = new System.Drawing.Point(4, 22);
+            this.Graphs_tab.Name = "Graphs_tab";
+            this.Graphs_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.Graphs_tab.Size = new System.Drawing.Size(1263, 560);
+            this.Graphs_tab.TabIndex = 1;
+            this.Graphs_tab.Text = "Graphs";
+            // 
+            // plotter
+            // 
+            this.plotter.BackColor = System.Drawing.Color.Transparent;
+            this.plotter.BackgroundColorBot = System.Drawing.Color.White;
+            this.plotter.BackgroundColorTop = System.Drawing.Color.White;
+            this.plotter.DashedGridColor = System.Drawing.Color.DarkGray;
+            this.plotter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plotter.DoubleBuffering = false;
+            this.plotter.Location = new System.Drawing.Point(3, 3);
+            this.plotter.Name = "plotter";
+            this.plotter.PlaySpeed = 0.5F;
+            this.plotter.Size = new System.Drawing.Size(1257, 554);
+            this.plotter.SolidGridColor = System.Drawing.Color.DarkGray;
+            this.plotter.TabIndex = 0;
             // 
             // serialPort1
             // 
@@ -763,17 +791,15 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 200;
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // pfdControl1
+            // timer2
             // 
-            this.pfdControl1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.pfdControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pfdControl1.Location = new System.Drawing.Point(3, 16);
-            this.pfdControl1.Name = "pfdControl1";
-            this.pfdControl1.Size = new System.Drawing.Size(346, 252);
-            this.pfdControl1.TabIndex = 0;
+            this.timer2.Mode = PrecisionTimer.Mode.Periodic;
+            this.timer2.Period = 1;
+            this.timer2.Resolution = 1;
+            this.timer2.SynchronizingObject = null;
             // 
             // GroundStation_Form
             // 
@@ -808,6 +834,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.Map_groupBox.ResumeLayout(false);
+            this.Graphs_tab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -821,7 +848,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button CONNECT_btn;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage Settings_tab;
+        private System.Windows.Forms.TabPage Graphs_tab;
         private System.Windows.Forms.TabPage Main_tab;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox Camera_groupBox;
@@ -873,6 +900,8 @@
         private System.Windows.Forms.Button ZoomOutBtn;
         private System.Windows.Forms.Button ZoomInBtn;
         private PrimaryFlightDisplay.PFDControl pfdControl1;
+        private GraphLib.PlotterDisplayEx plotter;
+        private PrecisionTimer.Timer timer2;
     }
 }
 

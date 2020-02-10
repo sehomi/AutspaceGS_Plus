@@ -31,6 +31,12 @@ namespace GroundStation_Mahsa
 
         GMapMarker cansat_marker;
 
+        String[] names = {"Altitude (MSL)", "Altitude (Relative)",
+                            "Rate of Descend", "Pressure",
+                            "Velocity (easting)", "Velocity (northing)"};
+
+        private DateTime lastTimerTick = DateTime.Now;
+
         public GroundStation_Form()
         {
             InitializeComponent();
@@ -45,6 +51,75 @@ namespace GroundStation_Mahsa
             cansat_layer.Markers.Add(cansat_marker);
 
             GMap1.Overlays.Add(cansat_layer);
+
+            configPlots();
+
+            lastTimerTick = DateTime.Now;
+        }
+
+        private String RenderXLabels(GraphLib.DataSource s, int idx)
+        {
+            String label = "";
+            if(s.Name == names[3])
+            {
+                int value = (int)(s.Samples[idx].x/30);
+                label = "" + value;
+                
+            }
+            else
+            {
+                int value = (int)(s.Samples[idx].x / 20);
+                label = "" + value + "\"";
+            }
+
+            return label;
+        }
+
+        private String RenderYLabel(GraphLib.DataSource s, float value)
+        {
+            return String.Format("{0:0.0}", value);
+        }
+
+        public void configPlots()
+        {
+            plotter.DataSources.Clear();
+            plotter.SetDisplayRangeX(0, 400);
+
+            
+            for (int j = 0; j < 6; j++)
+            {
+                plotter.DataSources.Add(new GraphLib.DataSource());
+                plotter.DataSources[j].Name = names[j];
+                plotter.DataSources[j].OnRenderXAxisLabel += RenderXLabels;
+
+                plotter.PanelLayout = GraphLib.PlotterGraphPaneEx.LayoutMode.TILES_VER;
+                plotter.DataSources[j].Length = 10000;
+                plotter.DataSources[j].AutoScaleY = true;
+                plotter.DataSources[j].SetDisplayRangeY(-300, 300);
+                plotter.DataSources[j].SetGridDistanceY(100);
+                plotter.DataSources[j].OnRenderYAxisLabel = RenderYLabel;
+
+            }
+
+            Color[] cols = { Color.FromArgb(255,0,0), 
+                                         Color.FromArgb(0,255,0),
+                                         Color.FromArgb(255,255,0), 
+                                         Color.FromArgb(64,64,255), 
+                                         Color.FromArgb(0,255,255) ,
+                                         Color.FromArgb(255,0,255),                              
+                                         Color.FromArgb(255,128,0) };
+
+            for (int j = 0; j < 6; j++)
+            {
+                plotter.DataSources[j].GraphColor = cols[j % 7];
+            }
+
+            plotter.BackgroundColorTop = Color.Black;
+            plotter.BackgroundColorBot = Color.Black;
+            plotter.SolidGridColor = Color.DarkGray;
+            plotter.DashedGridColor = Color.DarkGray;
+
+            plotter.Refresh();
         }
 
         private void tableLayoutPanel9_Paint(object sender, PaintEventArgs e)
@@ -206,8 +281,53 @@ namespace GroundStation_Mahsa
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // Updating Labels
             ALTMSLValue_lbl.Text = server.location.alt.ToString();
             cansat_marker.Position = new PointLatLng(server.location.lat, server.location.lng);
+
+            // Updating Graphs
+            try
+            {
+                TimeSpan dt = DateTime.Now - lastTimerTick;
+
+                for (int j = 0; j < 6; j++)
+                {
+
+                    CalcSinusFunction_3(plotter.DataSources[j], j, (float)dt.TotalMilliseconds);
+
+                }
+
+                //this.Invoke(new MethodInvoker(RefreshGraph));
+            }
+            catch (ObjectDisposedException ex)
+            {
+                // we get this on closing of form
+            }
+            catch (Exception ex)
+            {
+                Console.Write("exception invoking refreshgraph(): " + ex.Message);
+            }
+
+        }
+
+        protected void CalcSinusFunction_3(GraphLib.DataSource ds, int idx, float time)
+        {
+            GraphLib.cPoint[] src = ds.Samples;
+            for (int i = 0; i < src.Length; i++)
+            {
+                src[i].x = i;
+                src[i].y = 200 + (float)((200 * Math.Sin((idx + 1) * (time + i * 100) / 8000.0))) +
+                                +(float)((40 * Math.Sin((idx + 1) * (time + i * 200) / 2000.0)));
+                /**
+                            (float)( 4* Math.Sin( ((time + (i+8) * 100) / 900.0)))+
+                            (float)(28 * Math.Sin(((time + (i + 8) * 100) / 290.0))); */
+            }
+
+        }
+
+        private void RefreshGraph()
+        {
+            plotter.Refresh();
         }
 
         private void GroundStation_Form_Shown(object sender, EventArgs e)

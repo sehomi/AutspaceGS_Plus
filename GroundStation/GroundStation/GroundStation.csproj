@@ -38,6 +38,9 @@
     <Reference Include="GMap.NET.WindowsForms">
       <HintPath>lib\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
+    <Reference Include="GraphLib">
+      <HintPath>lib\GraphLib.dll</HintPath>
+    </Reference>
     <Reference Include="PrimaryFlightDisplay">
       <HintPath>lib\PrimaryFlightDisplay.dll</HintPath>
     </Reference>
