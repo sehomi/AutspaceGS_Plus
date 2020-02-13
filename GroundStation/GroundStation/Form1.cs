@@ -33,9 +33,12 @@ namespace GroundStation_Mahsa
 
         String[] names = {"Altitude (MSL)", "Altitude (Relative)",
                             "Rate of Descend", "Pressure",
-                            "Velocity (easting)", "Velocity (northing)"};
+                            "Velocity (easting)", "Velocity (northing)",
+                            "Current", "Voltage"};
 
         private DateTime lastTimerTick = DateTime.Now;
+
+        int plotsNum = 8;
 
         public GroundStation_Form()
         {
@@ -86,7 +89,7 @@ namespace GroundStation_Mahsa
             plotter.SetDisplayRangeX(0, 400);
 
             
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < plotsNum; j++)
             {
                 plotter.DataSources.Add(new GraphLib.DataSource());
                 plotter.DataSources[j].Name = names[j];
@@ -109,15 +112,16 @@ namespace GroundStation_Mahsa
                                          Color.FromArgb(255,0,255),                              
                                          Color.FromArgb(255,128,0) };
 
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < plotsNum; j++)
             {
                 plotter.DataSources[j].GraphColor = cols[j % 7];
             }
 
-            plotter.BackgroundColorTop = Color.Black;
-            plotter.BackgroundColorBot = Color.Black;
+            plotter.BackgroundColorTop = Color.White;
+            plotter.BackgroundColorBot = Color.White;
             plotter.SolidGridColor = Color.DarkGray;
             plotter.DashedGridColor = Color.DarkGray;
+            plotter.SolidGridColor = Color.Black;
 
             plotter.Refresh();
         }
@@ -290,7 +294,7 @@ namespace GroundStation_Mahsa
             {
                 TimeSpan dt = DateTime.Now - lastTimerTick;
 
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < plotsNum; j++)
                 {
 
                     CalcSinusFunction_3(plotter.DataSources[j], j, (float)dt.TotalMilliseconds);
